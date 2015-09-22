@@ -6,7 +6,7 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
-gem 'mysql2'
+gem 'mysql2', '~> 0.3.18'
 
 # To use Jbuilder templates for JSON
 gem 'jbuilder'
