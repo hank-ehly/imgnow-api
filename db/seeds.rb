@@ -1,6 +1,3 @@
-user = User.new(:email 								 => 'default@email.com',
-            		:username 						 => 'default',
-            		:password 						 => 'password')
-
+user = User.new(:email => 'default@email.com', :password => 'password')
 user.save!
 
