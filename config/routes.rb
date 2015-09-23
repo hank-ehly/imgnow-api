@@ -17,17 +17,19 @@
 #                          PUT    /users(.:format)               api/registrations#update
 #                          DELETE /users(.:format)               api/registrations#destroy
 #        api_images_upload POST   /api/images/upload(.:format)   api/images#upload
+#         api_images_index GET    /api/images/index(.:format)    api/images#index
 #                 api_test GET    /api/test(.:format)            application#test
+#          api_images_show GET    /api/images/show/:id(.:format) api/images#show
 #
 
 Rails.application.routes.draw do
 
-  # namespace :api do
-    devise_for :users, :controllers => {:sessions => 'api/sessions', :registrations => 'api/registrations'}
-  # end
+  devise_for :users, :controllers => {:sessions => 'api/sessions', :registrations => 'api/registrations'}
 
-  post 'api/images/upload' => 'api/images#upload'
-  get 'api/test'  => 'application#test'  
+  post 'api/images/upload'   => 'api/images#upload'
+  get  'api/images/index'    => 'api/images#index'
+  get  'api/test'            => 'application#test'  
+  get  'api/images/show/:id' => 'api/images#show', as: :api_images_show
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -7,22 +7,33 @@ class Api::ImagesController < ApplicationController
 		f = hex_to_string(params[:image])
 		image = Image.new
 
-		File.open('/Users/henryehly/Desktop/test.jpeg', 'wb') do |file|
+		File.open('/Users/henryehly/Desktop/img.jpeg', 'wb') do |file|
 			file.write(f)
-			image.file = File.open('/Users/henryehly/Desktop/test.jpeg', 'r')
-			image.user = current_user
+			filename = Time.now.to_i;
+			image.file = File.open('/Users/henryehly/Desktop/img.jpeg', 'r')
+			image.user = User.find_by(email: params[:email])
 			image.save
 		end
 
 		render json: {
-			url: 'http://192.168.0.10' + image.file.url
+			url: 'http://192.168.0.10:3000' + image.file.url
 		}
 		
 	end
 
-	# def index
-	# 	@images = Image.where(user: current_user)
-	# end
+	def index
+		if params[:email]
+			@images = Image.where(user: User.find_by(email: params[:email]))
+			render json: { images: @images }
+		end
+	end
+
+	def show
+		@image = Image.find(params[:id])
+		render json: {
+			image: @image
+		}
+	end
 
 	private
 
@@ -34,6 +45,5 @@ class Api::ImagesController < ApplicationController
     ret.each { |x| file << x}
     file  
   end
-	
 
 end
