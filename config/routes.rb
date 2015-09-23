@@ -16,20 +16,26 @@
 #                          PATCH  /users(.:format)               api/registrations#update
 #                          PUT    /users(.:format)               api/registrations#update
 #                          DELETE /users(.:format)               api/registrations#destroy
-#        api_images_upload POST   /api/images/upload(.:format)   api/images#upload
-#         api_images_index GET    /api/images/index(.:format)    api/images#index
-#                 api_test GET    /api/test(.:format)            application#test
-#          api_images_show GET    /api/images/show/:id(.:format) api/images#show
+#               api_images GET    /api/images(.:format)          api/images#index
+#                          POST   /api/images(.:format)          api/images#create
+#            new_api_image GET    /api/images/new(.:format)      api/images#new
+#           edit_api_image GET    /api/images/:id/edit(.:format) api/images#edit
+#                api_image GET    /api/images/:id(.:format)      api/images#show
+#                          PATCH  /api/images/:id(.:format)      api/images#update
+#                          PUT    /api/images/:id(.:format)      api/images#update
+#                          DELETE /api/images/:id(.:format)      api/images#destroy
 #
 
 Rails.application.routes.draw do
 
   devise_for :users, :controllers => {:sessions => 'api/sessions', :registrations => 'api/registrations'}
 
-  post 'api/images/upload'   => 'api/images#upload'
-  get  'api/images/index'    => 'api/images#index'
-  get  'api/test'            => 'application#test'  
-  get  'api/images/show/:id' => 'api/images#show', as: :api_images_show
+  namespace :api do
+    resources :images
+  end
+
+  # get    'api/images/show/:id'   => 'api/images#show', as: :api_images_show
+  # delete 'api/images/delete/:id' => 'api/images#destroy', as: :api_images_delete, method: :delete
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

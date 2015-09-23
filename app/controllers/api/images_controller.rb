@@ -2,7 +2,7 @@ class Api::ImagesController < ApplicationController
 
 	respond_to :json
 
-	def upload
+	def create
 
 		f = hex_to_string(params[:image])
 		image = Image.new
@@ -33,6 +33,15 @@ class Api::ImagesController < ApplicationController
 		render json: {
 			image: @image
 		}
+	end
+
+	def destroy
+		@image = Image.find(params[:id])
+		if @image.destroy
+			render json: {
+				destroyed_image: @image
+			}
+		end
 	end
 
 	private
