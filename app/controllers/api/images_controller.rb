@@ -13,11 +13,21 @@ class Api::ImagesController < ApplicationController
 			file.write(f)
 			image.file = File.open(tmp_dir + '/' + "#{timestamp}.jpeg", 'r')
 			image.user = User.find_by(email: params[:email])
+			image.scheduled_deletion_date = Time.now + 30.minutes
+			image.time_until_deletion = image.scheduled_deletion_date - Time.now
+			image.has_already_been_extended = false
 			image.save
 		end
 
 		render json: { url: image.file.url }
 		
+	end
+
+	def update
+		if params[:id]
+			result = Image.extend_deletion_date_for_image(params[:id])
+			render json: result
+		end
 	end
 
 	def index

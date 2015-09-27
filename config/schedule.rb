@@ -20,19 +20,16 @@
 # Learn more: http://github.com/javan/whenever
 
 set :output, "/Users/henryehly/Sites/ios_rails/imgnow/imgnow-api/log/cron_log.log"
-
 set :environment, "development"
 
-# every '* * * * *' do
-	# command "ruby -e 'puts \"its \" + Time.now.to_i.to_s'"
-# end
-
 # every day at midnight
-every '0 0 * * *' do
+# every '0 0 * * *' do
 	# runner "Image.delete_old_images"
-	runner "Image.clear_tmp_uploads"
-end
-
-# every '* * * * *' do
-# 	runner "Image.clear_tmp_uploads"
+	# runner "Image.clear_tmp_uploads"
 # end
+
+every '* * * * *' do
+	runner "Image.delete_old_images"
+	runner "Image.clear_tmp_uploads"
+	runner "Image.update_time_until_deletion"
+end
