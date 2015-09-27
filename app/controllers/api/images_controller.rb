@@ -6,18 +6,17 @@ class Api::ImagesController < ApplicationController
 
 		f = hex_to_string(params[:image])
 		image = Image.new
+		timestamp = Time.now.to_i.to_s
+		tmp_dir = Rails.root.join('public', 'uploads', 'tmp').to_s
 
-		File.open('/Users/henryehly/Desktop/img.jpeg', 'wb') do |file|
+		File.open(tmp_dir + '/' + "#{timestamp}.jpeg", 'wb') do |file|
 			file.write(f)
-			filename = Time.now.to_i;
-			image.file = File.open('/Users/henryehly/Desktop/img.jpeg', 'r')
+			image.file = File.open(tmp_dir + '/' + "#{timestamp}.jpeg", 'r')
 			image.user = User.find_by(email: params[:email])
 			image.save
 		end
 
-		render json: {
-			url: 'http://192.168.0.10:3000' + image.file.url
-		}
+		render json: { url: image.file.url }
 		
 	end
 
@@ -30,17 +29,17 @@ class Api::ImagesController < ApplicationController
 
 	def show
 		@image = Image.find(params[:id])
-		render json: {
-			image: @image
-		}
+		render json: { image: @image }
 	end
 
 	def destroy
 		@image = Image.find(params[:id])
-		if @image.destroy
-			render json: {
-				destroyed_image: @image
-			}
+		dir = Rails.root.join('public', 'uploads', @image.id.to_s).to_s
+		if Dir.exist?(dir)
+			if @image.destroy
+				Dir.rmdir(dir)
+				render json: { destroyed_image: @image }
+			end
 		end
 	end
 
@@ -49,10 +48,10 @@ class Api::ImagesController < ApplicationController
 	def hex_to_string(hex)
 	 	temp = hex.gsub("\s", "");
     ret = []
-    (0...temp.size()/2).each{|index| ret[index] = [temp[index*2, 2]].pack("H2")}
+    (0...temp.size() / 2).each{ |i| ret[i] = [temp[i * 2, 2]].pack("H2") }
     file = String.new
-    ret.each { |x| file << x}
-    file  
+    ret.each { |x| file << x }
+    file
   end
 
 end

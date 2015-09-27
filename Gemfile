@@ -8,6 +8,8 @@ gem 'spring', :group => :development
 
 gem 'mysql2', '~> 0.3.18'
 
+gem 'whenever', :require => false
+
 # To use Jbuilder templates for JSON
 gem 'jbuilder'
 
