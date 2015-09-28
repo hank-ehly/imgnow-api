@@ -1,4 +1,4 @@
-* <img> NOW
+* img NOW
 
 "Creating your own placeholder images is inefficient"
 
