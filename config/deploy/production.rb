@@ -52,7 +52,7 @@
 server '160.16.63.151',
   user: 'henryehly',
   roles: %w{web app},
-  port: 4321
+  port: 4321,
   ssh_options: {
     # user: 'user_name', # overrides user setting above
     # keys: %w(/home/henryehly/.ssh/id_rsa),
