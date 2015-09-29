@@ -136,7 +136,7 @@ class Image < ActiveRecord::Base
 			return_object[:image] = nil
 			return_object[:success] = false
 		else
-			image.scheduled_deletion_date = Time.now + 30.minutes
+			image.scheduled_deletion_date = Time.now + 30.days
 			image.time_until_deletion = image.scheduled_deletion_date - Time.now
 			image.has_already_been_extended = true
 			if image.save

@@ -20,7 +20,8 @@
 # Learn more: http://github.com/javan/whenever
 
 set :output, "/Users/henryehly/Sites/ios_rails/imgnow/imgnow-api/log/cron_log.log"
-set :environment, "development"
+# set :environment, "development"
+set :environment, "production"
 
 # every day at midnight
 # every '0 0 * * *' do
@@ -28,7 +29,7 @@ set :environment, "development"
 	# runner "Image.clear_tmp_uploads"
 # end
 
-every '* * * * *' do
+every '0 0 * * *' do
 	runner "Image.delete_old_images"
 	runner "Image.clear_tmp_uploads"
 	runner "Image.update_time_until_deletion"
