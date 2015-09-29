@@ -20,3 +20,4 @@ pickle-email-*.html
 /vendor/bundle
 .rvmrc
 .powenv
+config/initializers/devise.rb
