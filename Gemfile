@@ -13,6 +13,8 @@ gem 'whenever', :require => false
 # To use Jbuilder templates for JSON
 gem 'jbuilder'
 
+gem 'carrierwave'
+
 gem 'annotate'
 
 gem 'rack-cors', :require => 'rack/cors'
@@ -22,7 +24,6 @@ gem 'devise'
 # Deploy with Capistrano
 gem 'capistrano', :group => :development
 gem 'capistrano-rails', '~> 1.1'
-gem 'capistrano-bundler', '~> 1.1.2'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
