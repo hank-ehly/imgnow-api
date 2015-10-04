@@ -18,6 +18,7 @@ pickle-email-*.html
 /config/database.yml
 /.bundle
 /vendor/bundle
+/vendor/cache
 .rvmrc
 .powenv
 config/initializers/devise.rb
