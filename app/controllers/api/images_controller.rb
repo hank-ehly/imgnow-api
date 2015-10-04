@@ -14,8 +14,8 @@ class Api::ImagesController < ApplicationController
 			image.file = File.open(tmp_dir + '/' + "#{timestamp}.jpeg", 'r')
 			image.user = User.find_by(email: params[:email])
 
-			image.scheduled_deletion_date = Time.now + 30.minutes
-			# image.scheduled_deletion_date = Time.now + 30.days		
+			# image.scheduled_deletion_date = Time.now + 30.minutes
+			image.scheduled_deletion_date = Time.now + 30.days		
 			
 			image.time_until_deletion = image.scheduled_deletion_date - Time.now
 			image.has_already_been_extended = false

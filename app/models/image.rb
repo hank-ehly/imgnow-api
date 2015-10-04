@@ -78,13 +78,9 @@ class Image < ActiveRecord::Base
 			is_over_thirty_days_old  	 = i.created_at < (Time.now - 30.days) 	 	? true : false
 
 			# add old images to array
-			if is_over_thirty_minutes_old
+			if is_over_thirty_days_old
 				images_scheduled_for_deletion << i
 			end
-
-			# if is_over_thirty_days_old
-			# 	images_scheduled_for_deletion << i
-			# end
 			
 		end
 
@@ -140,8 +136,8 @@ class Image < ActiveRecord::Base
 			return_object[:success] = false
 		else
 
-			image.scheduled_deletion_date = Time.now + 30.minutes
-			# image.scheduled_deletion_date = Time.now + 29.days
+			# image.scheduled_deletion_date = Time.now + 30.minutes
+			image.scheduled_deletion_date = Time.now + 30.days
 		
 			image.time_until_deletion = image.scheduled_deletion_date - Time.now
 			image.has_already_been_extended = true
