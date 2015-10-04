@@ -132,7 +132,6 @@ class Image < ActiveRecord::Base
 		return_object = {}
 
 		if image.has_already_been_extended
-			return_object[:response] = "You've already extended the deletion date once."
 			return_object[:image] = nil
 			return_object[:success] = false
 		else
@@ -141,7 +140,6 @@ class Image < ActiveRecord::Base
 			image.has_already_been_extended = true
 			if image.save
 				return_object[:success] = true
-				return_object[:response] = "Deletion date has been moved 30 days from today."
 				return_object[:image] = image
 			end
 		end
