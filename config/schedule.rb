@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :output, "/Users/henryehly/Sites/ios_rails/imgnow/imgnow-api/log/cron_log.log"
+set :output, ENV['IMG_NOW_API_SCHEDULE_OUTPUT_LOCATION']
 # set :environment, "development"
 set :environment, "production"
 
@@ -29,7 +29,7 @@ set :environment, "production"
 	# runner "Image.clear_tmp_uploads"
 # end
 
-every '0 0 * * *' do
+every '0 * * * *' do
 	runner "Image.delete_old_images"
 	runner "Image.clear_tmp_uploads"
 	runner "Image.update_time_until_deletion"
