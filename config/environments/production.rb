@@ -48,6 +48,9 @@ Rails.application.configure do
   # when problems arise.
   config.log_level = :debug
 
+  # don't log those long jpeg strings
+  config.filter_parameters += [:image]
+
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
 

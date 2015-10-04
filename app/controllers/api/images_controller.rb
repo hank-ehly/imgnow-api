@@ -13,7 +13,10 @@ class Api::ImagesController < ApplicationController
 			file.write(f)
 			image.file = File.open(tmp_dir + '/' + "#{timestamp}.jpeg", 'r')
 			image.user = User.find_by(email: params[:email])
-			image.scheduled_deletion_date = Time.now + 30.days
+
+			image.scheduled_deletion_date = Time.now + 30.minutes
+			# image.scheduled_deletion_date = Time.now + 30.days		
+			
 			image.time_until_deletion = image.scheduled_deletion_date - Time.now
 			image.has_already_been_extended = false
 			image.save
@@ -32,7 +35,7 @@ class Api::ImagesController < ApplicationController
 
 	def index
 		if params[:email]
-			@images = Image.where(user: User.find_by(email: params[:email]))
+			@images = Image.where(user: User.find_by(email: params[:email])).order(scheduled_deletion_date: :asc)
 			render json: { images: @images }
 		end
 	end
@@ -58,7 +61,7 @@ class Api::ImagesController < ApplicationController
 	def hex_to_string(hex)
 	 	temp = hex.gsub("\s", "");
     ret = []
-    (0...temp.size() / 2).each{ |i| ret[i] = [temp[i * 2, 2]].pack("H2") }
+    (0...temp.size() / 2).each { |i| ret[i] = [temp[i * 2, 2]].pack("H2") }
     file = String.new
     ret.each { |x| file << x }
     file
