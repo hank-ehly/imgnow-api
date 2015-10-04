@@ -20,7 +20,7 @@ class Image < ActiveRecord::Base
 		cleared_files = []
 		success = false
 
-		puts "Start: Image.clear_tmp_uploads at " + Time.now.to_s
+		puts "Begin: Image.clear_tmp_uploads at " + Time.now.to_s
 
 		Dir.foreach(dir) do |file|
 			unless file == '.' || file == '..'
@@ -43,7 +43,7 @@ class Image < ActiveRecord::Base
 			end
 		end
 
-		puts "End:   Image.clear_tmp_uploads at " + Time.now.to_s
+		puts "End: Image.clear_tmp_uploads at " + Time.now.to_s
 
 	end
 
@@ -64,7 +64,7 @@ class Image < ActiveRecord::Base
 
 	def self.delete_old_images
 
-		puts "Start: Image.delete_old_images at " + Time.now.to_s
+		puts "Begin: Image.delete_old_images at " + Time.now.to_s
 
 		images_scheduled_for_deletion = []
 
@@ -82,6 +82,10 @@ class Image < ActiveRecord::Base
 				images_scheduled_for_deletion << i
 			end
 
+			# if is_over_thirty_days_old
+			# 	images_scheduled_for_deletion << i
+			# end
+			
 		end
 
 		unless images_scheduled_for_deletion.empty?
@@ -120,7 +124,7 @@ class Image < ActiveRecord::Base
 			end
 		end
 
-		puts "End:   Image.delete_old_images at " + Time.now.to_s
+		puts "End: Image.delete_old_images at " + Time.now.to_s
 
 	end # self.delete_old_images
 
@@ -135,7 +139,10 @@ class Image < ActiveRecord::Base
 			return_object[:image] = nil
 			return_object[:success] = false
 		else
-			image.scheduled_deletion_date = Time.now + 30.days
+
+			image.scheduled_deletion_date = Time.now + 30.minutes
+			# image.scheduled_deletion_date = Time.now + 29.days
+		
 			image.time_until_deletion = image.scheduled_deletion_date - Time.now
 			image.has_already_been_extended = true
 			if image.save
