@@ -23,12 +23,6 @@ set :output, ENV['IMG_NOW_API_SCHEDULE_OUTPUT_LOCATION']
 # set :environment, "development"
 set :environment, "production"
 
-# every day at midnight
-# every '0 0 * * *' do
-	# runner "Image.delete_old_images"
-	# runner "Image.clear_tmp_uploads"
-# end
-
 every '*/30 * * * *' do
 	runner "Image.delete_old_images"
 	runner "Image.clear_tmp_uploads"
