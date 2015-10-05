@@ -29,7 +29,7 @@ set :environment, "production"
 	# runner "Image.clear_tmp_uploads"
 # end
 
-every '0 */3 * * *' do
+every '*/30 * * * *' do
 	runner "Image.delete_old_images"
 	runner "Image.clear_tmp_uploads"
 	runner "Image.update_time_until_deletion"

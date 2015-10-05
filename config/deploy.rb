@@ -4,6 +4,8 @@ lock '3.4.0'
 set :application, 'imgnow-api'
 set :repo_url, 'git@github.com:hehly/imgnow-api.git'
 
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
@@ -36,6 +38,8 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log',
                                                'vendor/bundle', 
                                                'public/system', 
                                                'public/uploads/tmp')
+
+set :passenger_restart_with_touch, true
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
