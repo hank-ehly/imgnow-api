@@ -58,5 +58,5 @@ server '160.16.63.151',
     # keys: %w(/home/henryehly/.ssh/id_rsa),
     # forward_agent: false,
     # auth_methods: %w(publickey password)
-    # password: 'please use keys'
+    password: ENV['SAKURAPASSWORD']
   }
